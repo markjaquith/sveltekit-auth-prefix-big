@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores"
+	import { signIn, signOut } from '@auth/sveltekit/client'
 </script>
 
 {#if $page.data.session}
@@ -9,11 +10,11 @@
   signed in.
 </p>
 <p>Session expiry: {$page.data.session?.expires}</p>
+
+<button on:click={() => signOut()}>Sign out</button>
 {:else}
 <h1>Access Denied</h1>
 <p>
-  <a href="/auth/signin">
-    You must be signed in to view this page
-  </a>
+  <button type="button" on:click={() => signIn('github')}>Sign in with GitHub</button>
 </p>
 {/if}
